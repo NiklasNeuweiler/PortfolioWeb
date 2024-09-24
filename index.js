@@ -4,20 +4,23 @@ const url = 'https://api.worldnewsapi.com/search-news?api-key=a8798ff1987b4ad493
 async function fetchNews() {
     try {
         const response = await fetch(url);
-        const data = await response.json();  // Antwort als JSON parsen
-        console.log(data);  // Die vollständigen Daten in der Konsole anzeigen
+        if (!response.ok) {
+            throw new Error(`API returned status code: ${response.status}`);
+        }
+        const data = await response.json();
+        console.log(data);
         
-        // Überprüfen, ob Daten vorhanden sind und sie anzeigen
         if (data.news && data.news.length > 0) {
-            displayNews(data.news);  // Hier werden die Daten übergeben und angezeigt
+            displayNews(data.news);
         } else {
-            document.getElementById('news-container').innerHTML = '<p>Keine Nachrichten gefunden.</p>';
+            document.getElementById('news-container').innerHTML = '<p>No news found.</p>';
         }
     } catch (error) {
-        console.error('Fehler beim Abrufen der Daten:', error);
-        document.getElementById('news-container').innerHTML = '<p>Fehler beim Laden der Nachrichten.</p>';
+        console.error('Error fetching news:', error);
+        document.getElementById('news-container').innerHTML = '<p>Error loading news. Please try again later.</p>';
     }
 }
+
 
 // Funktion zum Anzeigen der Nachrichten (nur Bild und Überschrift)
 function displayNews(articles) {
