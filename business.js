@@ -1,46 +1,56 @@
-const apiKey = 'AIV5EF6X3SMWHA61';
-const symbol = 'AAPL'; // You can change this to any stock symbol
-const url = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${symbol}&apikey=${apiKey}`;
-
-// Function to fetch stock data
 async function fetchStockData() {
-    try {
-        const response = await fetch(url);
-        const data = await response.json();
-        console.log(data);
-
-        if (data['Time Series (Daily)']) {
-            displayStockData(data['Time Series (Daily)']);
-        } else {
-            document.getElementById('stock-container').innerHTML = '<p>No stock data found.</p>';
+    const url = 'https://alpha-vantage.p.rapidapi.com/query?function=TIME_SERIES_DAILY&symbol=MSFT&outputsize=compact&datatype=json';
+    const options = {
+        method: 'GET',
+        headers: {
+            'x-rapidapi-key': 'e71f71d07emsh4dec3cdfc232955p1f1b37jsn6484d10ae2bd',
+            'x-rapidapi-host': 'alpha-vantage.p.rapidapi.com'
         }
+    };
+
+    try {
+        const response = await fetch(url, options);
+        const result = await response.json(); // Fetch and parse JSON
+        console.log(result);
+        displayStockData(result); // Display the result on the page
     } catch (error) {
         console.error('Error fetching stock data:', error);
-        document.getElementById('stock-container').innerHTML = '<p>Error loading stock data.</p>';
+        const container = document.getElementById('stocks-container');
+        container.innerHTML = '<p>Error loading stock data.</p>';
     }
 }
 
-// Function to display stock data
 function displayStockData(stockData) {
-    const stockContainer = document.getElementById('stock-container');
-    stockContainer.innerHTML = ''; // Clear container
+    const container = document.getElementById('stocks-container');
 
-    // Get the latest stock data
-    const latestDate = Object.keys(stockData)[0];
-    const latestStock = stockData[latestDate];
-    
-    const stockItem = `
-        <div class="stock-item">
-            <h3>${symbol} (${latestDate})</h3>
-            <p>Open: ${latestStock['1. open']}</p>
-            <p>High: ${latestStock['2. high']}</p>
-            <p>Low: ${latestStock['3. low']}</p>
-            <p>Close: ${latestStock['4. close']}</p>
-            <p>Volume: ${latestStock['5. volume']}</p>
-        </div>
+    if (!container) {
+        console.error('Container element not found');
+        return;
+    }
+
+    const timeSeries = stockData['Time Series (Daily)'];
+    if (!timeSeries) {
+        container.innerHTML = '<p>No stock data found.</p>';
+        return;
+    }
+
+    // Get the latest stock data entry
+    const latestEntryKey = Object.keys(timeSeries)[0];
+    const latestEntry = timeSeries[latestEntryKey];
+
+    // Create HTML content for the stock data
+    container.innerHTML = `
+        <h3>Stock Data (Latest)</h3>
+        <p><strong>Date:</strong> ${latestEntryKey}</p>
+        <p><strong>Open:</strong> ${latestEntry['1. open']}</p>
+        <p><strong>High:</strong> ${latestEntry['2. high']}</p>
+        <p><strong>Low:</strong> ${latestEntry['3. low']}</p>
+        <p><strong>Close:</strong> ${latestEntry['4. close']}</p>
+        <p><strong>Volume:</strong> ${latestEntry['5. volume']}</p>
     `;
-    stockContainer.innerHTML = stockItem;
 }
 
-// Fetch stock data when the page loads
-document.addEventListener('DOMContentLoaded', fetchStockData);
+// Load stock data on page load
+document.addEventListener('DOMContentLoaded', () => {
+    fetchStockData();
+});

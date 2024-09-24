@@ -1,31 +1,41 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Latest News</title>
+    <title>Home - Stock & News Portal</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
-        <h1>Latest News</h1>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="entertainment.html">Entertainment</a></li>
-                <li><a href="world.html">World</a></li>
-                <li><a href="business.html">Business</a></li>
-                <li><a href="health.html">Health</a></li>
-                <li><a href="sport.html">Sport</a></li>
-                <li><a href="technology.html">Technology</a></li>
-            </ul>
-        </nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">Stock & News Portal</a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="business.html">Business</a></li>
+                    <li><a href="entertainment.html">Entertainment</a></li>
+                    <li><a href="world.html">World</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
-    
-    <main id="news-container">
-        <!-- Nachrichten werden hier angezeigt -->
+
+    <main>
+        <section class="hero">
+            <h1>Welcome to the Stock & News Portal</h1>
+            <p>Here you'll find the latest business news and stock data in real-time.</p>
+            <div id="news-container">
+                <!-- News articles will be dynamically inserted here -->
+            </div>
+        </section>
     </main>
     
+
+    <footer>
+        <p>&copy; 2024 Stock & News Portal. All Rights Reserved.</p>
+    </footer>
+
     <script src="index.js"></script>
 </body>
 </html>
