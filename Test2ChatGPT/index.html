@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wetter-App</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <h1>Willkommen zur Wetter-App</h1>
+  </header>
+
+  <section class="hero">
+    <h2>Geben Sie eine Stadt ein, um das aktuelle Wetter zu erfahren</h2>
+    <form id="weatherForm">
+      <input type="text" id="cityInput" placeholder="Stadt eingeben" required>
+      <button type="submit">Wetter anzeigen</button>
+    </form>
+  </section>
+
+  <section id="weatherResult" class="weather-info">
+    <!-- Wetterdaten werden hier dynamisch hinzugefügt -->
+  </section>
+
+  <script src="app.js"></script>
+</body>
+</html>

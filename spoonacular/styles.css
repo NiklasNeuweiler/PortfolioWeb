@@ -1,0 +1,80 @@
+body {
+    font-family: Arial, sans-serif;
+    background-image: url('fitness-background.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+    color: white;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 15px;
+}
+
+h1 {
+    margin: 0;
+    font-size: 3em;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 15px 0 0 0;
+}
+
+nav li {
+    display: inline;
+    margin: 0 15px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.2em;
+}
+
+#hero {
+    background: rgba(0, 0, 0, 0.6);
+    padding: 50px 0;
+}
+
+#hero h2 {
+    font-size: 2.5em;
+}
+
+#hero p {
+    font-size: 1.5em;
+}
+
+section {
+    padding: 50px 0;
+    margin: 20px auto;
+    width: 80%;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 10px;
+}
+
+input, button {
+    padding: 10px;
+    font-size: 1.2em;
+    margin: 10px;
+}
+
+#results, #recipe-results {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.result-item {
+    background-color: rgba(255, 255, 255, 0.1);
+    margin: 15px;
+    padding: 20px;
+    border-radius: 8px;
+    width: 250px;
+    text-align: left;
+}
