@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitness & Food Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Fitness & Food Tracker</h1>
+        <nav>
+            <ul>
+                <li><a href="#food-tracker">Food Tracker</a></li>
+                <li><a href="#rezepte">Rezepte</a></li>
+                <li><a href="#profil">Profil</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="hero">
+        <h2>Deine Fitness. Dein Erfolg.</h2>
+        <p>Tracke deine Mahlzeiten und entdecke gesunde Rezepte für einen ausgewogenen Lebensstil.</p>
+    </section>
+
+    <section id="food-tracker">
+        <h2>Tracke deine Mahlzeiten</h2>
+        <input type="text" id="food-input" placeholder="Gib ein Lebensmittel ein...">
+        <button id="search-btn">Suche</button>
+        <div id="results"></div>
+    </section>
+
+    <section id="rezepte">
+        <h2>Finde gesunde Rezepte</h2>
+        <input type="text" id="recipe-input" placeholder="Gib eine Zutat ein...">
+        <button id="recipe-btn">Rezepte suchen</button>
+        <div id="recipe-results"></div>
+    </section>
+
+    <section id="profil">
+        <h2>Dein Profil</h2>
+        <p>Hier kannst du später deine Fortschritte verfolgen und persönliche Ziele festlegen.</p>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Fitness Tracker</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
