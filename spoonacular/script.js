@@ -1,4 +1,4 @@
-const API_KEY = 'DEIN_API_KEY_HIER';
+const API_KEY = 'b9d0491a4dba49edaa46691944aacf5a';
 const searchButton = document.getElementById('search-btn');
 const recipeButton = document.getElementById('recipe-btn');
 const resultsDiv = document.getElementById('results');
