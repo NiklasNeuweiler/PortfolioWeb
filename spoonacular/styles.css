@@ -56,19 +56,22 @@ nav img {
     font-size: 1.5em;
 }
 
+/* Macht die Boxen transparent und entfernt die sichtbaren Rahmen */
 section {
-    padding: 50px 0;
-    margin: 20px auto;
-    width: 80%;
-    background-color: rgba(0, 0, 0, 0.7);
-    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0); /* Macht den Hintergrund unsichtbar */
+    border: none; /* Entfernt die Rahmen */
+    box-shadow: none; /* Entfernt eventuelle Schatten */
 }
 
-input, button {
-    padding: 10px;
-    font-size: 1.2em;
-    margin: 10px;
+button, input, select {
+    border: 1px solid rgba(255, 255, 255, 0); /* Dezente weiße Ränder */
+    background-color: rgba(255, 255, 255, 0.6); /* Leicht durchsichtige Hintergrundfarbe */
 }
+
+button:hover, input:hover, select:hover {
+    background-color: rgba(255, 255, 255, 0.2); /* Beim Hover-Effekt etwas sichtbarer */
+}
+
 
 #results, #recipe-results {
     margin-top: 20px;
@@ -197,4 +200,22 @@ button {
 
 #cookie-banner button:hover {
     background-color: #45a049;
+}
+
+#logo {
+    width: 100px; /* Adjust size */
+    height: auto;
+    float: left; /* To align the logo to the left */
+    margin-right: 15px; /* Spacing between logo and title */
+}
+
+#background-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;      /* Make sure the video stretches to 100% of the width */
+    height: 100%;     /* Make sure the video stretches to 100% of the height */
+    object-fit: cover; /* Ensure the video covers the entire viewport while maintaining aspect ratio */
+    z-index: -1;      /* Place the video behind all content */
+    overflow: hidden; /* Prevent any overflow if the video aspect ratio differs */
 }
