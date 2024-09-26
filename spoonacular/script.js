@@ -1,55 +1,69 @@
-const API_KEY = 'DEIN_API_KEY_HIER';
-const searchButton = document.getElementById('search-btn');
-const recipeButton = document.getElementById('recipe-btn');
-const resultsDiv = document.getElementById('results');
-const recipeResultsDiv = document.getElementById('recipe-results');
+const API_KEY = 'b9d0491a4dba49edaa46691944aacf5a';
 
-// Lebensmittel suchen und Nährwertinformationen anzeigen
-searchButton.addEventListener('click', () => {
-    const food = document.getElementById('food-input').value;
-    if (food) {
-        fetch(`https://api.spoonacular.com/food/ingredients/search?query=${food}&apiKey=${API_KEY}`)
-            .then(response => response.json())
-            .then(data => {
-                resultsDiv.innerHTML = data.results.map(item => `
+// Funktion für die Suche nach Lebensmittelinformationen mit Spoonacular API
+async function searchFoodByKeyword(query) {
+    const url = `https://api.spoonacular.com/food/ingredients/search?query=${query}&apiKey=${API_KEY}`;
+    try {
+        const response = await fetch(url);
+        const result = await response.json();
+        console.log(result);
+        return result;
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+// Funktion für die Suche nach Rezepten basierend auf Zutaten
+async function searchRecipesByIngredient(ingredient) {
+    const url = `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredient}&apiKey=${API_KEY}`;
+    try {
+        const response = await fetch(url);
+        const result = await response.json();
+        console.log(result);
+        return result;
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+// Event Listener für die Lebensmittel-Suche
+document.getElementById('search-btn').addEventListener('click', () => {
+    const query = document.getElementById('food-input').value;
+    if (query) {
+        searchFoodByKeyword(query).then(data => {
+            if (data && data.results.length > 0) {
+                document.getElementById('results').innerHTML = data.results.map(item => `
                     <div class="result-item">
                         <h3>${item.name}</h3>
-                        <p><strong>Kalorien:</strong> ${item.calories} kcal</p>
-                        <p><strong>Proteine:</strong> ${item.protein} g</p>
-                        <p><strong>Fette:</strong> ${item.fat} g</p>
+                        <p>ID: ${item.id}</p>
                     </div>
                 `).join('');
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                resultsDiv.innerHTML = '<p>Es gab ein Problem bei der Suche nach diesem Lebensmittel.</p>';
-            });
+            } else {
+                document.getElementById('results').innerHTML = '<p>Keine Ergebnisse gefunden.</p>';
+            }
+        });
     } else {
-        resultsDiv.innerHTML = '<p>Bitte gib ein Lebensmittel ein.</p>';
+        document.getElementById('results').innerHTML = '<p>Bitte gib ein Lebensmittel ein.</p>';
     }
 });
 
-// Rezepte suchen basierend auf Zutaten
-recipeButton.addEventListener('click', () => {
+// Event Listener für die Rezept-Suche
+document.getElementById('recipe-btn').addEventListener('click', () => {
     const ingredient = document.getElementById('recipe-input').value;
     if (ingredient) {
-        fetch(`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredient}&apiKey=${API_KEY}`)
-            .then(response => response.json())
-            .then(data => {
-                recipeResultsDiv.innerHTML = data.map(recipe => `
+        searchRecipesByIngredient(ingredient).then(data => {
+            if (data && data.length > 0) {
+                document.getElementById('recipe-results').innerHTML = data.map(recipe => `
                     <div class="result-item">
                         <h3>${recipe.title}</h3>
                         <img src="${recipe.image}" alt="${recipe.title}" style="width:100%">
-                        <p>Zutaten benötigt: ${recipe.usedIngredientCount}</p>
-                        <p>Zutaten übrig: ${recipe.missedIngredientCount}</p>
                     </div>
                 `).join('');
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                recipeResultsDiv.innerHTML = '<p>Es gab ein Problem bei der Suche nach Rezepten.</p>';
-            });
+            } else {
+                document.getElementById('recipe-results').innerHTML = '<p>Keine Rezepte gefunden.</p>';
+            }
+        });
     } else {
-        recipeResultsDiv.innerHTML = '<p>Bitte gib eine Zutat ein.</p>';
+        document.getElementById('recipe-results').innerHTML = '<p>Bitte gib eine Zutat ein.</p>';
     }
 });
