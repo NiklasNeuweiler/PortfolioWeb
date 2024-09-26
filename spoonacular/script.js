@@ -368,6 +368,7 @@ document.getElementById('add-meal-btn').addEventListener('click', () => {
     }
 });
 
+
 // Zurück zur Suche
 document.getElementById('back-btn').addEventListener('click', () => {
     document.getElementById('detail-view').style.display = 'none';
