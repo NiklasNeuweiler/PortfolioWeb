@@ -8,12 +8,12 @@
 </head>
 <body>
     <header>
-        <h1>Fitness & Food Tracker</h1>
+        <h1 data-i18n="title">Fitness & Food Tracker</h1>
         <nav>
             <ul>
-                <li><a href="#food-tracker">Food Tracker</a></li>
-                <li><a href="#rezepte">Rezepte</a></li>
-                <li><a href="#mahlzeit">Mahlzeit zusammenstellen</a></li>
+                <li><a href="#food-tracker" data-i18n="trackMeals">Food Tracker</a></li>
+                <li><a href="#rezepte" data-i18n="recipes">Rezepte</a></li>
+                <li><a href="#mahlzeit" data-i18n="assembleMeal">Mahlzeit zusammenstellen</a></li>
                 <li>
                     <img id="de-flag" src="de.png" alt="Deutsch" style="cursor: pointer;" />
                     <img id="en-flag" src="en.png" alt="Englisch" style="cursor: pointer;" />
@@ -23,73 +23,70 @@
     </header>
 
     <section id="day-selection">
-        <h2>Wähle einen Tag</h2>
+        <h2 data-i18n="chooseDay">Wähle einen Tag</h2>
         <input type="date" id="selected-day" />
-        <button id="load-day-btn">Tag laden</button>
-        <button id="new-day-btn">Neuen Tag beginnen</button>
-        <button id="delete-day-btn">Tag löschen</button>
+        <button id="load-day-btn" data-i18n="loadDay">Tag laden</button>
+        <button id="new-day-btn" data-i18n="newDay">Neuen Tag beginnen</button>
+        <button id="delete-day-btn" data-i18n="deleteDay">Tag löschen</button>
     </section>
 
     <section id="food-tracker">
-        <h2>Tracke deine Mahlzeiten</h2>
+        <h2 data-i18n="trackMeals">Tracke deine Mahlzeiten</h2>
         <input type="text" id="food-input" placeholder="Suchbegriff eingeben" />
-        <button id="search-btn">Suche</button>
+        <button id="search-btn" data-i18n="search">Suche</button>
         <div id="results"></div>
-        <button id="prev-btn" style="display: none;">Vorherige Seite</button>
-        <button id="next-btn" style="display: none;">Nächste Seite</button>
     </section>
 
     <section id="detail-view" style="display: none;">
-        <h2>Produktdetails</h2>
+        <h2 data-i18n="productDetails">Produktdetails</h2>
         <div id="detail-content"></div>
-        <label for="quantity">Menge in Gramm:</label>
+        <label for="quantity" data-i18n="quantity">Menge in Gramm:</label>
         <input type="number" id="quantity" value="100" />
-        <label for="meal-category">Kategorie:</label>
+        <label for="meal-category" data-i18n="category">Kategorie:</label>
         <select id="meal-category">
-            <option value="breakfast">Frühstück</option>
-            <option value="lunch">Mittagessen</option>
-            <option value="dinner">Abendessen</option>
-            <option value="snacks">Snacks</option>
+            <option value="breakfast" data-i18n="breakfast">Frühstück</option>
+            <option value="lunch" data-i18n="lunch">Mittagessen</option>
+            <option value="dinner" data-i18n="dinner">Abendessen</option>
+            <option value="snacks" data-i18n="snacks">Snacks</option>
         </select>
-        <button id="add-meal-btn">Zu Mahlzeit hinzufügen</button>
-        <button id="back-btn">Zurück zur Suche</button>
+        <button id="add-meal-btn" data-i18n="addToMeal">Zu Mahlzeit hinzufügen</button>
+        <button id="back-btn" data-i18n="backToSearch">Zurück zur Suche</button>
     </section>
 
     <section id="meal-summary">
-        <h2>Zusammenfassung des Tages</h2>
+        <h2 data-i18n="summary">Zusammenfassung des Tages</h2>
 
         <div id="breakfast-summary">
-            <h3>Frühstück</h3>
+            <h3 data-i18n="breakfast">Frühstück</h3>
             <div id="breakfast-list"></div>
             <div id="breakfast-nutrition"></div>
         </div>
 
         <div id="lunch-summary">
-            <h3>Mittagessen</h3>
+            <h3 data-i18n="lunch">Mittagessen</h3>
             <div id="lunch-list"></div>
             <div id="lunch-nutrition"></div>
         </div>
 
         <div id="dinner-summary">
-            <h3>Abendessen</h3>
+            <h3 data-i18n="dinner">Abendessen</h3>
             <div id="dinner-list"></div>
             <div id="dinner-nutrition"></div>
         </div>
 
         <div id="snacks-summary">
-            <h3>Snacks</h3>
+            <h3 data-i18n="snacks">Snacks</h3>
             <div id="snacks-list"></div>
             <div id="snacks-nutrition"></div>
         </div>
     </section>
 
     <div id="cookie-banner" style="display: none; position: fixed; bottom: 0; width: 100%; background-color: rgba(0,0,0,0.8); color: white; padding: 20px; text-align: center;">
-        <p>Wir verwenden Cookies, um Ihre Erfahrung zu verbessern. Indem Sie die Seite nutzen, stimmen Sie der Verwendung von Cookies zu.
-        <button id="accept-cookies-btn">Akzeptieren</button></p>
+        <p data-i18n="cookieNotice">Wir verwenden Cookies, um Ihre Erfahrung zu verbessern. Indem Sie die Seite nutzen, stimmen Sie der Verwendung von Cookies zu.</p>
+        <button id="accept-cookies-btn" data-i18n="acceptCookies">Akzeptieren</button>
     </div>
     
-    
-
     <script src="script.js"></script>
+    <script src="language.js"></script>
 </body>
 </html>
