@@ -1,10 +1,3 @@
-let meal = [];
-let totalNutrition = {
-    calories: 0,
-    protein: 0,
-    carbs: 0,
-    fat: 0
-};
 
 // Funktion zum Hinzufügen eines Lebensmittels zur Mahlzeit
 function addToMeal(food, grams, nutrients) {

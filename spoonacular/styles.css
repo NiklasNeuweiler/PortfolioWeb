@@ -36,6 +36,13 @@ nav a {
     font-size: 1.2em;
 }
 
+nav img {
+    width: 30px; /* Breite der Flaggen anpassen */
+    height: auto; /* Höhe proportional zur Breite */
+    margin: 0 10px;
+    cursor: pointer; /* Cursor ändert sich zu einem Zeiger, wenn über das Bild gefahren wird */
+}
+
 #hero {
     background: rgba(0, 0, 0, 0.6);
     padding: 50px 0;
@@ -85,4 +92,3 @@ input, button {
     color: white;
     text-align: center;
 }
-

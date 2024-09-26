@@ -1,113 +1,198 @@
-const API_KEY = 'b9d0491a4dba49edaa46691944aacf5a';
-let currentPage = 1;
-const pageSize = 10;
-let totalResults = 0;
-let selectedFood = null;
-let selectedNutrients = null;
+const API_KEY = 'b9d0491a4dba49edaa46691944aacf5a';  // Spoonacular API-Schlüssel
+const DEEPL_API_KEY = '30c13504-9c75-4e46-9dc1-baf0717dcb36:fx';  // DeepL API-Schlüssel
 
-// Funktion zur Suche von Lebensmitteln mit Paginierung
-async function searchFoodByKeyword(query, page) {
-    const offset = (page - 1) * pageSize;
-    const url = `https://api.spoonacular.com/food/ingredients/search?query=${query}&number=${pageSize}&offset=${offset}&apiKey=${API_KEY}`;
+let meal = {
+    breakfast: [],
+    lunch: [],
+    dinner: [],
+    snacks: []
+};
+let totalNutrition = {
+    breakfast: { calories: 0, protein: 0, carbs: 0, fat: 0 },
+    lunch: { calories: 0, protein: 0, carbs: 0, fat: 0 },
+    dinner: { calories: 0, protein: 0, carbs: 0, fat: 0 },
+    snacks: { calories: 0, protein: 0, carbs: 0, fat: 0 }
+};
+
+// Automatische Übersetzung von Deutsch nach Englisch (DeepL API)
+async function translateToEnglish(query) {
+    const url = `https://api-free.deepl.com/v2/translate`;
+    const params = new URLSearchParams({
+        auth_key: DEEPL_API_KEY,
+        text: query,
+        source_lang: 'DE',
+        target_lang: 'EN'
+    });
+
     try {
-        const response = await fetch(url);
+        const response = await fetch(url, { method: 'POST', body: params });
         const result = await response.json();
-        totalResults = result.totalResults;
-        return result;
+        return result.translations[0].text;
     } catch (error) {
-        console.error('Error:', error);
+        console.error('Fehler bei der Übersetzung:', error);
     }
 }
 
-// Funktion zur Anzeige von Produktdetails inkl. Nährwerte
+// Suche nach Lebensmitteln über die Spoonacular API
+async function searchFoodByKeyword(query, page) {
+    const offset = (page - 1) * 10;
+
+    // Übersetze die Suchanfrage ins Englische
+    if (query) {
+        query = await translateToEnglish(query);
+        console.log(`Übersetzte Suchanfrage: ${query}`);
+    }
+
+    const url = `https://api.spoonacular.com/food/ingredients/search?query=${query}&number=10&offset=${offset}&apiKey=${API_KEY}`;
+    
+    try {
+        const response = await fetch(url);
+        const result = await response.json();
+        if (result.results && result.results.length > 0) {
+            renderProductList(result.results);
+        } else {
+            document.getElementById('results').innerHTML = '<p>Keine Ergebnisse gefunden.</p>';
+        }
+    } catch (error) {
+        console.error('Fehler bei der Suche:', error);
+    }
+}
+
+// Produktdetails von Spoonacular API abrufen
 async function getFoodDetailsById(id) {
     const url = `https://api.spoonacular.com/food/ingredients/${id}/information?amount=100&unit=grams&apiKey=${API_KEY}`;
     try {
         const response = await fetch(url);
         const result = await response.json();
-        selectedFood = result;
-        selectedNutrients = {
-            calories: result.nutrition.nutrients.find(n => n.name === 'Calories')?.amount || 0,
-            protein: result.nutrition.nutrients.find(n => n.name === 'Protein')?.amount || 0,
-            carbs: result.nutrition.nutrients.find(n => n.name === 'Carbohydrates')?.amount || 0,
-            fat: result.nutrition.nutrients.find(n => n.name === 'Fat')?.amount || 0
-        };
         return result;
     } catch (error) {
-        console.error('Error:', error);
+        console.error('Fehler bei der Detailanzeige:', error);
     }
 }
 
-// Funktion zur Anzeige von Produktlisten mit Paginierung
+// Produktliste anzeigen
 function renderProductList(products) {
-    document.getElementById('results').innerHTML = products.map(item => `
-        <div class="result-item">
-            <h3>${item.name}</h3>
-            <p>ID: ${item.id}</p>
-            <button class="detail-btn" data-id="${item.id}">Details ansehen</button>
+    document.getElementById('results').innerHTML = products.map(product => `
+        <div>
+            <h3>${product.name}</h3>
+            <p>ID: ${product.id}</p>
+            <button class="detail-btn" data-id="${product.id}">Details ansehen</button>
         </div>
     `).join('');
 }
 
-// Paginierung Buttons anzeigen/verstecken
-function updatePagingButtons() {
-    document.getElementById('prev-btn').style.display = currentPage > 1 ? 'block' : 'none';
-    document.getElementById('next-btn').style.display = currentPage * pageSize < totalResults ? 'block' : 'none';
+// Hinzufügen zur Mahlzeit
+function addToMeal(food, grams, nutrients, category) {
+    const foodItem = {
+        name: food.name,
+        grams: grams,
+        nutrition: {
+            calories: (nutrients.calories * grams) / 100,
+            protein: (nutrients.protein * grams) / 100,
+            carbs: (nutrients.carbs * grams) / 100,
+            fat: (nutrients.fat * grams) / 100
+        }
+    };
+    meal[category].push(foodItem);
+    updateTotalNutrition(foodItem.nutrition, category);
+    renderMealList(category);
+    renderTotalNutrition(category);
+    saveMeals();
 }
 
-// Lebensmittel-Suche mit Paginierung
+// Aktualisiere die Nährwerte für eine bestimmte Kategorie
+function updateTotalNutrition(nutrition, category) {
+    totalNutrition[category].calories += nutrition.calories;
+    totalNutrition[category].protein += nutrition.protein;
+    totalNutrition[category].carbs += nutrition.carbs;
+    totalNutrition[category].fat += nutrition.fat;
+}
+
+// Anzeige der gespeicherten Mahlzeiten in den Kategorien
+function renderMealList(category) {
+    const mealList = document.getElementById(`${category}-list`);
+    mealList.innerHTML = meal[category].map(item => `
+        <div>
+            <h4>${item.name} - ${item.grams}g</h4>
+            <p>Kalorien: ${item.nutrition.calories.toFixed(2)} kcal</p>
+            <p>Proteine: ${item.nutrition.protein.toFixed(2)} g</p>
+            <p>Kohlenhydrate: ${item.nutrition.carbs.toFixed(2)} g</p>
+            <p>Fett: ${item.nutrition.fat.toFixed(2)} g</p>
+        </div>
+    `).join('');
+}
+
+// Anzeige der Gesamtnährwerte pro Kategorie
+function renderTotalNutrition(category) {
+    const totalNutritionDiv = document.getElementById(`${category}-nutrition`);
+    totalNutritionDiv.innerHTML = `
+        <p>Kalorien: ${totalNutrition[category].calories.toFixed(2)} kcal</p>
+        <p>Proteine: ${totalNutrition[category].protein.toFixed(2)} g</p>
+        <p>Kohlenhydrate: ${totalNutrition[category].carbs.toFixed(2)} g</p>
+        <p>Fett: ${totalNutrition[category].fat.toFixed(2)} g</p>
+    `;
+}
+
+// Speichern der Mahlzeiten im localStorage
+function saveMeals() {
+    localStorage.setItem('mealData', JSON.stringify(meal));
+    localStorage.setItem('totalNutritionData', JSON.stringify(totalNutrition));
+}
+
+// Laden der gespeicherten Mahlzeiten aus dem localStorage
+function loadMeals() {
+    const storedMealData = localStorage.getItem('mealData');
+    const storedNutritionData = localStorage.getItem('totalNutritionData');
+    if (storedMealData && storedNutritionData) {
+        meal = JSON.parse(storedMealData);
+        totalNutrition = JSON.parse(storedNutritionData);
+        ['breakfast', 'lunch', 'dinner', 'snacks'].forEach(category => {
+            renderMealList(category);
+            renderTotalNutrition(category);
+        });
+    }
+}
+
+// Initialisiere die Seite und lade gespeicherte Daten
+window.onload = () => {
+    loadMeals();
+};
+
+// Sprachumschaltung
+document.getElementById('de-flag').addEventListener('click', () => {
+    currentLanguage = 'de';
+});
+
+document.getElementById('en-flag').addEventListener('click', () => {
+    currentLanguage = 'en';
+});
+
+// Suche nach Lebensmitteln
 document.getElementById('search-btn').addEventListener('click', () => {
     const query = document.getElementById('food-input').value;
     if (query) {
-        currentPage = 1; // Suche startet immer auf Seite 1
-        searchFoodByKeyword(query, currentPage).then(data => {
-            if (data && data.results.length > 0) {
-                renderProductList(data.results);
-                updatePagingButtons();
-            } else {
-                document.getElementById('results').innerHTML = '<p>Keine Ergebnisse gefunden.</p>';
-            }
-        });
-    } else {
-        document.getElementById('results').innerHTML = '<p>Bitte gib ein Lebensmittel ein.</p>';
+        searchFoodByKeyword(query, 1);
     }
 });
 
-// Vorherige Seite anzeigen
-document.getElementById('prev-btn').addEventListener('click', () => {
-    if (currentPage > 1) {
-        currentPage--;
-        const query = document.getElementById('food-input').value;
-        searchFoodByKeyword(query, currentPage).then(data => {
-            renderProductList(data.results);
-            updatePagingButtons();
-        });
-    }
-});
-
-// Nächste Seite anzeigen
-document.getElementById('next-btn').addEventListener('click', () => {
-    const query = document.getElementById('food-input').value;
-    if (currentPage * pageSize < totalResults) {
-        currentPage++;
-        searchFoodByKeyword(query, currentPage).then(data => {
-            renderProductList(data.results);
-            updatePagingButtons();
-        });
-    }
-});
-
-// Dynamische Detailseite inkl. Nährwerte
+// Anzeige der Details
 document.addEventListener('click', function (e) {
     if (e.target && e.target.classList.contains('detail-btn')) {
         const foodId = e.target.getAttribute('data-id');
         getFoodDetailsById(foodId).then(foodData => {
             if (foodData) {
+                selectedFood = foodData;
+                selectedNutrients = {
+                    calories: foodData.nutrition.nutrients.find(n => n.name === 'Calories')?.amount || 0,
+                    protein: foodData.nutrition.nutrients.find(n => n.name === 'Protein')?.amount || 0,
+                    carbs: foodData.nutrition.nutrients.find(n => n.name === 'Carbohydrates')?.amount || 0,
+                    fat: foodData.nutrition.nutrients.find(n => n.name === 'Fat')?.amount || 0
+                };
                 document.getElementById('detail-content').innerHTML = `
                     <h3>${foodData.name}</h3>
                     <p>ID: ${foodData.id}</p>
-                    <p>Einheit: ${foodData.unit || 'undefined'}</p>
-                    <p>Verfügbare Menge: ${foodData.amount || 'undefined'}</p>
+                    <p>Einheit: ${foodData.unit}</p>
+                    <p>Verfügbare Menge: ${foodData.amount}</p>
                     <p>Kalorien pro 100g: ${selectedNutrients.calories} kcal</p>
                     <p>Proteine pro 100g: ${selectedNutrients.protein} g</p>
                     <p>Kohlenhydrate pro 100g: ${selectedNutrients.carbs} g</p>
@@ -124,12 +209,13 @@ document.addEventListener('click', function (e) {
 // Hinzufügen zur Mahlzeit
 document.getElementById('add-meal-btn').addEventListener('click', () => {
     const grams = parseInt(document.getElementById('quantity').value);
-    if (selectedFood && grams > 0) {
-        addToMeal(selectedFood, grams, selectedNutrients);
+    const category = document.getElementById('meal-category').value;
+    if (selectedFood && grams > 0 && category) {
+        addToMeal(selectedFood, grams, selectedNutrients, category);
     }
 });
 
-// Zurück zur Hauptsuche
+// Zurück zur Suche
 document.getElementById('back-btn').addEventListener('click', () => {
     document.getElementById('detail-view').style.display = 'none';
     document.getElementById('food-tracker').style.display = 'block';
