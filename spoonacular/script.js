@@ -1,18 +1,67 @@
 const API_KEY = 'b9d0491a4dba49edaa46691944aacf5a';  // Spoonacular API-Schlüssel
 const DEEPL_API_KEY = '30c13504-9c75-4e46-9dc1-baf0717dcb36:fx';  // DeepL API-Schlüssel
 
-let meal = {
-    breakfast: [],
-    lunch: [],
-    dinner: [],
-    snacks: []
-};
-let totalNutrition = {
-    breakfast: { calories: 0, protein: 0, carbs: 0, fat: 0 },
-    lunch: { calories: 0, protein: 0, carbs: 0, fat: 0 },
-    dinner: { calories: 0, protein: 0, carbs: 0, fat: 0 },
-    snacks: { calories: 0, protein: 0, carbs: 0, fat: 0 }
-};
+let currentDay = new Date().toISOString().split('T')[0];  // Aktueller Tag
+let mealData = JSON.parse(localStorage.getItem('mealData')) || {};  // Daten für alle Tage
+let meal = initializeMealsForDay(currentDay);
+let totalNutrition = initializeNutritionForDay(currentDay);
+
+// Initialisiere Mahlzeiten und Nährwerte für den gewählten Tag
+function initializeMealsForDay(day) {
+    if (!mealData[day]) {
+        mealData[day] = {
+            breakfast: [],
+            lunch: [],
+            dinner: [],
+            snacks: []
+        };
+    }
+    return mealData[day];
+}
+
+function initializeNutritionForDay(day) {
+    return {
+        breakfast: { calories: 0, protein: 0, carbs: 0, fat: 0 },
+        lunch: { calories: 0, protein: 0, carbs: 0, fat: 0 },
+        dinner: { calories: 0, protein: 0, carbs: 0, fat: 0 },
+        snacks: { calories: 0, protein: 0, carbs: 0, fat: 0 }
+    };
+}
+
+// Funktion zum Tag-Wechsel
+document.getElementById('load-day-btn').addEventListener('click', () => {
+    const selectedDay = document.getElementById('selected-day').value;
+    if (selectedDay) {
+        currentDay = selectedDay;
+        meal = initializeMealsForDay(currentDay);
+        totalNutrition = initializeNutritionForDay(currentDay);
+        renderMealsForDay();
+    }
+});
+
+// Neuen Tag starten
+document.getElementById('new-day-btn').addEventListener('click', () => {
+    const newDay = new Date().toISOString().split('T')[0];
+    currentDay = newDay;
+    meal = initializeMealsForDay(currentDay);
+    totalNutrition = initializeNutritionForDay(currentDay);
+    renderMealsForDay();
+});
+
+// Tag löschen
+document.getElementById('delete-day-btn').addEventListener('click', () => {
+    delete mealData[currentDay];
+    saveMeals();
+    currentDay = new Date().toISOString().split('T')[0];
+    meal = initializeMealsForDay(currentDay);
+    totalNutrition = initializeNutritionForDay(currentDay);
+    renderMealsForDay();
+});
+
+// Speichern der Mahlzeiten für den aktuellen Tag
+function saveMeals() {
+    localStorage.setItem('mealData', JSON.stringify(mealData));
+}
 
 // Automatische Übersetzung von Deutsch nach Englisch (DeepL API)
 async function translateToEnglish(query) {
@@ -111,13 +160,15 @@ function updateTotalNutrition(nutrition, category) {
 // Anzeige der gespeicherten Mahlzeiten in den Kategorien
 function renderMealList(category) {
     const mealList = document.getElementById(`${category}-list`);
-    mealList.innerHTML = meal[category].map(item => `
+    mealList.innerHTML = meal[category].map((item, index) => `
         <div>
             <h4>${item.name} - ${item.grams}g</h4>
             <p>Kalorien: ${item.nutrition.calories.toFixed(2)} kcal</p>
             <p>Proteine: ${item.nutrition.protein.toFixed(2)} g</p>
             <p>Kohlenhydrate: ${item.nutrition.carbs.toFixed(2)} g</p>
             <p>Fett: ${item.nutrition.fat.toFixed(2)} g</p>
+            <button onclick="editMeal('${category}', ${index})">Bearbeiten</button>
+            <button onclick="deleteMeal('${category}', ${index})">Löschen</button>
         </div>
     `).join('');
 }
@@ -135,8 +186,7 @@ function renderTotalNutrition(category) {
 
 // Speichern der Mahlzeiten im localStorage
 function saveMeals() {
-    localStorage.setItem('mealData', JSON.stringify(meal));
-    localStorage.setItem('totalNutritionData', JSON.stringify(totalNutrition));
+    localStorage.setItem('mealData', JSON.stringify(mealData));
 }
 
 // Laden der gespeicherten Mahlzeiten aus dem localStorage
@@ -144,13 +194,17 @@ function loadMeals() {
     const storedMealData = localStorage.getItem('mealData');
     const storedNutritionData = localStorage.getItem('totalNutritionData');
     if (storedMealData && storedNutritionData) {
-        meal = JSON.parse(storedMealData);
+        mealData = JSON.parse(storedMealData);
         totalNutrition = JSON.parse(storedNutritionData);
-        ['breakfast', 'lunch', 'dinner', 'snacks'].forEach(category => {
-            renderMealList(category);
-            renderTotalNutrition(category);
-        });
+        renderMealsForDay();
     }
+}
+
+function renderMealsForDay() {
+    ['breakfast', 'lunch', 'dinner', 'snacks'].forEach(category => {
+        renderMealList(category);
+        renderTotalNutrition(category);
+    });
 }
 
 // Initialisiere die Seite und lade gespeicherte Daten
