@@ -1,52 +1,70 @@
-const translations = {
-    en: {
-        headerTitle: 'Fitness & Food Tracker',
-        navFoodTracker: 'Food Tracker',
-        navRecipes: 'Recipes',
-        navMeal: 'Create Meal',
-        foodTrackerTitle: 'Track your Meals',
-        productDetailsTitle: 'Product Details',
-        labelQuantity: 'Quantity in grams:',
-        addMealBtn: 'Add to Meal',
-        backBtn: 'Back to Search',
-        mealTrackerTitle: 'Your Meal',
-        totalNutritionTitle: 'Total Nutrition'
-    },
-    de: {
-        headerTitle: 'Fitness & Food Tracker',
-        navFoodTracker: 'Food Tracker',
-        navRecipes: 'Rezepte',
-        navMeal: 'Mahlzeit zusammenstellen',
-        foodTrackerTitle: 'Tracke deine Mahlzeiten',
-        productDetailsTitle: 'Produktdetails',
-        labelQuantity: 'Menge in Gramm:',
-        addMealBtn: 'Zur Mahlzeit hinzufügen',
-        backBtn: 'Zurück zur Suche',
-        mealTrackerTitle: 'Deine Mahlzeit',
-        totalNutritionTitle: 'Gesamtnährwerte'
-    }
-};
-
-// Funktion, um die Sprache zu wechseln
-function changeLanguage(lang) {
-    document.getElementById('header-title').innerText = translations[lang].headerTitle;
-    document.getElementById('nav-food-tracker').innerText = translations[lang].navFoodTracker;
-    document.getElementById('nav-recipes').innerText = translations[lang].navRecipes;
-    document.getElementById('nav-meal').innerText = translations[lang].navMeal;
-    document.getElementById('food-tracker-title').innerText = translations[lang].foodTrackerTitle;
-    document.getElementById('product-details-title').innerText = translations[lang].productDetailsTitle;
-    document.getElementById('label-quantity').innerText = translations[lang].labelQuantity;
-    document.getElementById('add-meal-btn').innerText = translations[lang].addMealBtn;
-    document.getElementById('back-btn').innerText = translations[lang].backBtn;
-    document.getElementById('meal-tracker-title').innerText = translations[lang].mealTrackerTitle;
-    document.getElementById('total-nutrition-title').innerText = translations[lang].totalNutritionTitle;
+// Funktion zur Sprachumschaltung
+function switchLanguage(lang) {
+    const elementsToTranslate = document.querySelectorAll('[data-i18n]'); // Elemente mit Datenattribut für Übersetzung
+    elementsToTranslate.forEach(element => {
+        const translationKey = element.getAttribute('data-i18n');
+        element.innerText = translations[lang][translationKey];
+    });
 }
 
-// Event Listener für Sprachumschaltung
+// Event Listener für die Sprachflaggen
 document.getElementById('de-flag').addEventListener('click', () => {
-    changeLanguage('de');
+    switchLanguage('de');
 });
 
 document.getElementById('en-flag').addEventListener('click', () => {
-    changeLanguage('en');
+    switchLanguage('en');
 });
+
+// Übersetzungen für beide Sprachen
+const translations = {
+    en: {
+        "title": "Fitness & Food Tracker",
+        "trackMeals": "Track your meals",
+        "recipes": "Recipes",
+        "assembleMeal": "Assemble meal",
+        "chooseDay": "Choose a day",
+        "loadDay": "Load Day",
+        "newDay": "Start new day",
+        "deleteDay": "Delete Day",
+        "summary": "Summary of the day",
+        "breakfast": "Breakfast",
+        "lunch": "Lunch",
+        "dinner": "Dinner",
+        "snacks": "Snacks",
+        "addToMeal": "Add to meal",
+        "backToSearch": "Back to search",
+        "productDetails": "Product details",
+        "quantity": "Quantity in grams",
+        "category": "Category",
+        "search": "Search",
+        "cookieNotice": "We use cookies to enhance your experience. By using the site, you agree to the use of cookies.",
+        "acceptCookies": "Accept"
+    },
+    de: {
+        "title": "Fitness & Food Tracker",
+        "trackMeals": "Tracke deine Mahlzeiten",
+        "recipes": "Rezepte",
+        "assembleMeal": "Mahlzeit zusammenstellen",
+        "chooseDay": "Wähle einen Tag",
+        "loadDay": "Tag laden",
+        "newDay": "Neuen Tag beginnen",
+        "deleteDay": "Tag löschen",
+        "summary": "Zusammenfassung des Tages",
+        "breakfast": "Frühstück",
+        "lunch": "Mittagessen",
+        "dinner": "Abendessen",
+        "snacks": "Snacks",
+        "addToMeal": "Zu Mahlzeit hinzufügen",
+        "backToSearch": "Zurück zur Suche",
+        "productDetails": "Produktdetails",
+        "quantity": "Menge in Gramm",
+        "category": "Kategorie",
+        "search": "Suche",
+        "cookieNotice": "Wir verwenden Cookies, um Ihre Erfahrung zu verbessern. Indem Sie die Seite nutzen, stimmen Sie der Verwendung von Cookies zu.",
+        "acceptCookies": "Akzeptieren"
+    }
+};
+
+// Lade die Standardsprache (Deutsch)
+switchLanguage('de');
