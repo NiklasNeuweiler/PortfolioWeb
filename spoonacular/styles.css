@@ -198,3 +198,11 @@ button {
 #cookie-banner button:hover {
     background-color: #45a049;
 }
+
+#logo {
+    width: 100px; /* Adjust size */
+    height: auto;
+    float: left; /* To align the logo to the left */
+    margin-right: 15px; /* Spacing between logo and title */
+}
+
