@@ -8,18 +8,23 @@
 </head>
 <body>
     <header>
-        <h1>Fitness & Food Tracker</h1>
+        <h1 id="header-title">Fitness & Food Tracker</h1>
         <nav>
             <ul>
-                <li><a href="#food-tracker">Food Tracker</a></li>
-                <li><a href="#rezepte">Rezepte</a></li>
-                <li><a href="#profil">Profil</a></li>
+                <li><a href="#food-tracker" id="nav-food-tracker">Food Tracker</a></li>
+                <li><a href="#rezepte" id="nav-recipes">Rezepte</a></li>
+                <li><a href="#meal-tracker" id="nav-meal">Mahlzeit zusammenstellen</a></li>
             </ul>
+            <!-- Sprachauswahl -->
+            <div id="language-switch">
+                <img src="de-flag.png" id="de-flag" alt="Deutsch" style="cursor: pointer; width: 30px;">
+                <img src="en-flag.png" id="en-flag" alt="English" style="cursor: pointer; width: 30px;">
+            </div>
         </nav>
     </header>
 
     <section id="food-tracker">
-        <h2>Tracke deine Mahlzeiten</h2>
+        <h2 id="food-tracker-title">Tracke deine Mahlzeiten</h2>
         <input type="text" id="food-input" placeholder="Gib ein Lebensmittel ein...">
         <button id="search-btn">Suche</button>
         <div id="results"></div>
@@ -28,9 +33,19 @@
     </section>
 
     <section id="detail-view" style="display:none;">
-        <h2>Produktdetails</h2>
+        <h2 id="product-details-title">Produktdetails</h2>
         <div id="detail-content"></div>
+        <label for="quantity" id="label-quantity">Menge in Gramm:</label>
+        <input type="number" id="quantity" value="100">
+        <button id="add-meal-btn">Zur Mahlzeit hinzufügen</button>
         <button id="back-btn">Zurück zur Suche</button>
+    </section>
+
+    <section id="meal-tracker">
+        <h2 id="meal-tracker-title">Deine Mahlzeit</h2>
+        <div id="meal-list"></div>
+        <h3 id="total-nutrition-title">Gesamtnährwerte</h3>
+        <div id="total-nutrition"></div>
     </section>
 
     <footer>
@@ -38,5 +53,7 @@
     </footer>
 
     <script src="script.js"></script>
+    <script src="meal.js"></script>
+    <script src="language.js"></script>
 </body>
 </html>
