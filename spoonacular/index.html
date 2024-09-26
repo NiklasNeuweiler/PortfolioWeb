@@ -18,28 +18,19 @@
         </nav>
     </header>
 
-    <section id="hero">
-        <h2>Deine Fitness. Dein Erfolg.</h2>
-        <p>Tracke deine Mahlzeiten und entdecke gesunde Rezepte für einen ausgewogenen Lebensstil.</p>
-    </section>
-
     <section id="food-tracker">
         <h2>Tracke deine Mahlzeiten</h2>
         <input type="text" id="food-input" placeholder="Gib ein Lebensmittel ein...">
         <button id="search-btn">Suche</button>
         <div id="results"></div>
+        <button id="prev-btn" style="display:none;">Vorherige Seite</button>
+        <button id="next-btn" style="display:none;">Nächste Seite</button>
     </section>
 
-    <section id="rezepte">
-        <h2>Finde gesunde Rezepte</h2>
-        <input type="text" id="recipe-input" placeholder="Gib eine Zutat ein...">
-        <button id="recipe-btn">Rezepte suchen</button>
-        <div id="recipe-results"></div>
-    </section>
-
-    <section id="profil">
-        <h2>Dein Profil</h2>
-        <p>Hier kannst du später deine Fortschritte verfolgen und persönliche Ziele festlegen.</p>
+    <section id="detail-view" style="display:none;">
+        <h2>Produktdetails</h2>
+        <div id="detail-content"></div>
+        <button id="back-btn">Zurück zur Suche</button>
     </section>
 
     <footer>
