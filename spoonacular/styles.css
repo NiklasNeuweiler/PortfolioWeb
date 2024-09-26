@@ -174,3 +174,27 @@ button {
 button {
     margin: 5px;
 }
+
+
+#cookie-banner {
+    background-color: rgba(0, 0, 0, 0.9);
+    color: white;
+    padding: 15px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    z-index: 1000;
+}
+
+#cookie-banner button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+#cookie-banner button:hover {
+    background-color: #45a049;
+}

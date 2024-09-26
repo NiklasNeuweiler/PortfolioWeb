@@ -207,6 +207,105 @@ function renderMealsForDay() {
     });
 }
 
+// Funktion zum Bearbeiten einer Mahlzeit
+function editMeal(category, index) {
+    const foodItem = meal[category][index];
+    const newGrams = prompt(`Gib die neue Grammzahl für ${foodItem.name} ein:`, foodItem.grams);
+
+    if (newGrams !== null && newGrams > 0) {
+        // Nährwerte aktualisieren
+        const previousNutrition = foodItem.nutrition;
+        const newNutrition = {
+            calories: (previousNutrition.calories / foodItem.grams) * newGrams,
+            protein: (previousNutrition.protein / foodItem.grams) * newGrams,
+            carbs: (previousNutrition.carbs / foodItem.grams) * newGrams,
+            fat: (previousNutrition.fat / foodItem.grams) * newGrams,
+        };
+
+        // Aktualisiere die Mahlzeit
+        foodItem.grams = newGrams;
+        foodItem.nutrition = newNutrition;
+
+        // Gesamtwerte aktualisieren
+        updateTotalNutritionAfterEdit(previousNutrition, newNutrition, category);
+        renderMealList(category);
+        renderTotalNutrition(category);
+        saveMeals();
+    }
+}
+
+// Funktion zum Löschen einer Mahlzeit
+function deleteMeal(category, index) {
+    const foodItem = meal[category][index];
+
+    if (confirm(`Bist du sicher, dass du ${foodItem.name} löschen möchtest?`)) {
+        // Nährwerte von den Gesamtnährwerten abziehen
+        updateTotalNutritionAfterDelete(foodItem.nutrition, category);
+
+        // Entferne das Element aus der Mahlzeit
+        meal[category].splice(index, 1);
+        renderMealList(category);
+        renderTotalNutrition(category);
+        saveMeals();
+    }
+}
+
+// Nährwerte nach dem Bearbeiten einer Mahlzeit aktualisieren
+function updateTotalNutritionAfterEdit(previousNutrition, newNutrition, category) {
+    totalNutrition[category].calories += (newNutrition.calories - previousNutrition.calories);
+    totalNutrition[category].protein += (newNutrition.protein - previousNutrition.protein);
+    totalNutrition[category].carbs += (newNutrition.carbs - previousNutrition.carbs);
+    totalNutrition[category].fat += (newNutrition.fat - previousNutrition.fat);
+}
+
+// Nährwerte nach dem Löschen einer Mahlzeit aktualisieren
+function updateTotalNutritionAfterDelete(nutrition, category) {
+    totalNutrition[category].calories -= nutrition.calories;
+    totalNutrition[category].protein -= nutrition.protein;
+    totalNutrition[category].carbs -= nutrition.carbs;
+    totalNutrition[category].fat -= nutrition.fat;
+}
+
+// Anzeige der gespeicherten Mahlzeiten in den Kategorien mit Bearbeiten- und Löschen-Buttons
+function renderMealList(category) {
+    const mealList = document.getElementById(`${category}-list`);
+    mealList.innerHTML = meal[category].map((item, index) => `
+        <div>
+            <h4>${item.name} - ${item.grams}g</h4>
+            <p>Kalorien: ${item.nutrition.calories.toFixed(2)} kcal</p>
+            <p>Proteine: ${item.nutrition.protein.toFixed(2)} g</p>
+            <p>Kohlenhydrate: ${item.nutrition.carbs.toFixed(2)} g</p>
+            <p>Fett: ${item.nutrition.fat.toFixed(2)} g</p>
+            <button onclick="editMeal('${category}', ${index})">Bearbeiten</button>
+            <button onclick="deleteMeal('${category}', ${index})">Löschen</button>
+        </div>
+    `).join('');
+}
+
+// Prüfen, ob der Benutzer bereits der Verwendung von Cookies zugestimmt hat
+function checkCookieConsent() {
+    if (!localStorage.getItem('cookieConsent')) {
+        document.getElementById('cookie-banner').style.display = 'block';  // Cookie-Banner anzeigen
+    }
+}
+
+// Funktion, um die Zustimmung zu speichern
+function setCookieConsent() {
+    localStorage.setItem('cookieConsent', 'true');  // Zustimmung im localStorage speichern
+    document.getElementById('cookie-banner').style.display = 'none';  // Cookie-Banner ausblenden
+}
+
+// Event Listener für den "Akzeptieren"-Button
+document.getElementById('accept-cookies-btn').addEventListener('click', function() {
+    setCookieConsent();  // Zustimmung setzen
+});
+
+// Beim Laden der Seite prüfen, ob die Zustimmung bereits vorliegt
+window.onload = function() {
+    checkCookieConsent();  // Cookie-Zustimmung prüfen
+    loadMeals();  // Falls vorhanden, bereits gespeicherte Mahlzeiten laden
+};
+
 // Initialisiere die Seite und lade gespeicherte Daten
 window.onload = () => {
     loadMeals();
