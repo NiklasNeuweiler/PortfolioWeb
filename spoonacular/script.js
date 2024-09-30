@@ -122,13 +122,14 @@ async function getFoodDetailsById(id) {
 // Produktliste anzeigen
 function renderProductList(products) {
     document.getElementById('results').innerHTML = products.map(product => `
-        <div>
+        <div class="result-item">
             <h3>${product.name}</h3>
-            <p>ID: ${product.id}</p>
+            <img src="https://spoonacular.com/cdn/ingredients_500x500/${product.image}" alt="${product.name}">
             <button class="detail-btn" data-id="${product.id}">Details ansehen</button>
         </div>
     `).join('');
 }
+
 
 // Hinzufügen zur Mahlzeit
 function addToMeal(food, grams, nutrients, category) {
@@ -343,14 +344,12 @@ document.addEventListener('click', function (e) {
                 };
                 document.getElementById('detail-content').innerHTML = `
                     <h3>${foodData.name}</h3>
-                    <p>ID: ${foodData.id}</p>
-                    <p>Einheit: ${foodData.unit}</p>
                     <p>Verfügbare Menge: ${foodData.amount}</p>
                     <p>Kalorien pro 100g: ${selectedNutrients.calories} kcal</p>
                     <p>Proteine pro 100g: ${selectedNutrients.protein} g</p>
                     <p>Kohlenhydrate pro 100g: ${selectedNutrients.carbs} g</p>
                     <p>Fett pro 100g: ${selectedNutrients.fat} g</p>
-                    <p>Image: <img src="https://spoonacular.com/cdn/ingredients_100x100/${foodData.image}" alt="${foodData.name}"></p>
+                    <p>Image: <img src="https://spoonacular.com/cdn/ingredients_500x500/${foodData.image}" alt="${foodData.name}"></p>
                 `;
                 document.getElementById('food-tracker').style.display = 'none';
                 document.getElementById('detail-view').style.display = 'block';
@@ -373,4 +372,9 @@ document.getElementById('add-meal-btn').addEventListener('click', () => {
 document.getElementById('back-btn').addEventListener('click', () => {
     document.getElementById('detail-view').style.display = 'none';
     document.getElementById('food-tracker').style.display = 'block';
+});
+
+// Toggle the visibility of the menu when the menu icon is clicked
+document.getElementById('menu-icon').addEventListener('click', function() {
+    document.getElementById('menu').classList.toggle('active');
 });
