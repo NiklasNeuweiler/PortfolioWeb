@@ -374,7 +374,15 @@ document.getElementById('back-btn').addEventListener('click', () => {
     document.getElementById('food-tracker').style.display = 'block';
 });
 
-// Toggle the visibility of the menu when the menu icon is clicked
+// Toggle the visibility of the menu and scroll to top when the menu icon is clicked
 document.getElementById('menu-icon').addEventListener('click', function() {
-    document.getElementById('menu').classList.toggle('active');
+    // Toggle the menu visibility
+    const menu = document.getElementById('menu');
+    menu.classList.toggle('active');
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+
 });
+
