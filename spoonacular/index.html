@@ -3,98 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mumpf & Pump</title>
+    <title>Fitness & Food Tracker Übersicht</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="icon" href="logo.png" type="image/png">
-
 </head>
 <body>
-    <video autoplay muted loop id="background-video">
-        <source src="background.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
+    <div class="video-container">
+        <video autoplay muted loop id="background-video">
+            <source src="index-background.mp4" type="video/mp4">
+            Dein Browser unterstützt kein Video-Tag.
+        </video>
+    </div>
 
     <header>
-        <img src="logo.png" alt="Website Logo" id="logo" />
-        <h1 data-i18n="title">Mumpf & Pump</h1>
-        <nav>
-            <ul>
-                <li><a href="#food-tracker" data-i18n="trackMeals">Food Tracker</a></li>
-                <li><a href="#rezepte" data-i18n="recipes">Rezepte</a></li>
-                <li><a href="#mahlzeit" data-i18n="assembleMeal">Mahlzeit zusammenstellen</a></li>
-                <li>
-                    <img id="de-flag" src="de.png" alt="Deutsch" style="cursor: pointer;" />
-                    <img id="en-flag" src="en.png" alt="Englisch" style="cursor: pointer;" />
-                </li>
-            </ul>
-        </nav>
+        <h1>Fitness & Food Tracker Übersicht</h1>
     </header>
 
-    <section id="day-selection">
-        <h2 data-i18n="chooseDay">Wähle einen Tag</h2>
-        <input type="date" id="selected-day" />
-        <button id="load-day-btn" data-i18n="loadDay">Tag laden</button>
-        <button id="new-day-btn" data-i18n="newDay">Neuen Tag beginnen</button>
-        <button id="delete-day-btn" data-i18n="deleteDay">Tag löschen</button>
-    </section>
+    <section id="overview">
+        <div class="tile-container">
+            <div class="tile">
+                <img src="tracker.jpg" alt="Tracker">
+                <div class="tile-text">
+                    <h2>Tracker</h2>
+                    <p>Verfolge deine Mahlzeiten und Nährwerte im <a href="tracker.html">Food Tracker</a>.</p>
+                </div>
+            </div>
 
-    <section id="food-tracker">
-        <h2 data-i18n="trackMeals">Tracke deine Mahlzeiten</h2>
-        <input type="text" id="food-input" placeholder="Suchbegriff eingeben" />
-        <button id="search-btn" data-i18n="search">Suche</button>
-        <div id="results"></div>
-    </section>
+            <div class="tile">
+                <img src="statistiken.jpg" alt="Statistiken">
+                <div class="tile-text">
+                    <h2>Statistiken</h2>
+                    <p>Analysiere deine Fortschritte und überwache deine Fitnessstatistiken.</p>
+                </div>
+            </div>
 
-    <section id="detail-view" style="display: none;">
-        <h2 data-i18n="productDetails">Produktdetails</h2>
-        <div id="detail-content"></div>
-        <label for="quantity" data-i18n="quantity">Menge in Gramm:</label>
-        <input type="number" id="quantity" value="100" />
-        <label for="meal-category" data-i18n="category">Kategorie:</label>
-        <select id="meal-category">
-            <option value="breakfast" data-i18n="breakfast">Frühstück</option>
-            <option value="lunch" data-i18n="lunch">Mittagessen</option>
-            <option value="dinner" data-i18n="dinner">Abendessen</option>
-            <option value="snacks" data-i18n="snacks">Snacks</option>
-        </select>
-        <button id="add-meal-btn" data-i18n="addToMeal">Zu Mahlzeit hinzufügen</button>
-        <button id="back-btn" data-i18n="backToSearch">Zurück zur Suche</button>
-    </section>
-
-    <section id="meal-summary">
-        <h2 data-i18n="summary">Zusammenfassung des Tages</h2>
-
-        <div id="breakfast-summary">
-            <h3 data-i18n="breakfast">Frühstück</h3>
-            <div id="breakfast-list"></div>
-            <div id="breakfast-nutrition"></div>
-        </div>
-
-        <div id="lunch-summary">
-            <h3 data-i18n="lunch">Mittagessen</h3>
-            <div id="lunch-list"></div>
-            <div id="lunch-nutrition"></div>
-        </div>
-
-        <div id="dinner-summary">
-            <h3 data-i18n="dinner">Abendessen</h3>
-            <div id="dinner-list"></div>
-            <div id="dinner-nutrition"></div>
-        </div>
-
-        <div id="snacks-summary">
-            <h3 data-i18n="snacks">Snacks</h3>
-            <div id="snacks-list"></div>
-            <div id="snacks-nutrition"></div>
+            <div class="tile">
+                <img src="ziele.jpg" alt="Ziele">
+                <div class="tile-text">
+                    <h2>Ziele setzen</h2>
+                    <p>Setze dir Ziele und verfolge deinen Fortschritt in Echtzeit.</p>
+                </div>
+            </div>
         </div>
     </section>
 
-    <div id="cookie-banner" style="display: none; position: fixed; bottom: 0; width: 100%; background-color: rgba(0,0,0,0.8); color: white; padding: 20px; text-align: center;">
-        <p data-i18n="cookieNotice">Wir verwenden Cookies, um Ihre Erfahrung zu verbessern. Indem Sie die Seite nutzen, stimmen Sie der Verwendung von Cookies zu.</p>
-        <button id="accept-cookies-btn" data-i18n="acceptCookies">Akzeptieren</button>
-    </div>
-    
-    <script src="script.js"></script>
-    <script src="language.js"></script>
+    <script src="index.js"></script>
 </body>
 </html>
