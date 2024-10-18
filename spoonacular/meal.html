@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mahlzeit zusammenstellen</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>FitFood Hub</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="tracker.html">Food Tracker</a></li>
+                <li><a href="rezepte.html">Rezepte</a></li>
+                <li><a href="meal.html">Mahlzeit zusammenstellen</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="create-meal-section">
+        <h2>Mahlzeit zusammenstellen</h2>
+        <label for="meal-name">Name der Mahlzeit:</label>
+        <input type="text" id="meal-name" placeholder="Name der Mahlzeit eingeben">
+        <button id="create-meal-btn">Mahlzeit erstellen</button>
+    </section>
+
+    <section id="ingredient-search-section">
+        <h2>Zutaten suchen</h2>
+        <input type="text" id="ingredient-search-input" placeholder="Zutat eingeben">
+        <button id="ingredient-search-btn">Suche</button>
+        <div id="ingredient-results"></div>
+    </section>
+
+    <section id="meal-overview-section">
+        
+        <div id="meal-overview"></div>
+        
+        <button id="save-meal-btn">Mahlzeit speichern</button>
+        
+        <h3>Gespeicherte Mahlzeiten</h3>
+        <div id="saved-meals"></div>
+        
+    </section>
+
+     <script src="meal.js"></script>
+    
+</body>
+</html>
