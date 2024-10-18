@@ -39,15 +39,6 @@ document.getElementById("load-day-btn").addEventListener("click", () => {
   }
 });
 
-// Neuen Tag starten
-document.getElementById("new-day-btn").addEventListener("click", () => {
-  const newDay = new Date().toISOString().split("T")[0];
-  currentDay = newDay;
-  meal = initializeMealsForDay(currentDay);
-  totalNutrition = initializeNutritionForDay(currentDay);
-  renderMealsForDay();
-});
-
 // Tag löschen
 document.getElementById("delete-day-btn").addEventListener("click", () => {
   delete mealData[currentDay];
@@ -305,32 +296,6 @@ function renderMealList(category) {
     .join("");
 }
 
-// Prüfen, ob der Benutzer bereits der Verwendung von Cookies zugestimmt hat
-function checkCookieConsent() {
-  if (!localStorage.getItem("cookieConsent")) {
-    document.getElementById("cookie-banner").style.display = "block"; // Cookie-Banner anzeigen
-  }
-}
-
-// Funktion, um die Zustimmung zu speichern
-function setCookieConsent() {
-  localStorage.setItem("cookieConsent", "true"); // Zustimmung im localStorage speichern
-  document.getElementById("cookie-banner").style.display = "none"; // Cookie-Banner ausblenden
-}
-
-// Event Listener für den "Akzeptieren"-Button
-document
-  .getElementById("accept-cookies-btn")
-  .addEventListener("click", function () {
-    setCookieConsent(); // Zustimmung setzen
-  });
-
-// Beim Laden der Seite prüfen, ob die Zustimmung bereits vorliegt
-window.onload = function () {
-  checkCookieConsent(); // Cookie-Zustimmung prüfen
-  loadMeals(); // Falls vorhanden, bereits gespeicherte Mahlzeiten laden
-};
-
 // Initialisiere die Seite und lade gespeicherte Daten
 window.onload = () => {
   loadMeals();
@@ -406,3 +371,4 @@ document.getElementById("menu-icon").addEventListener("click", function () {
     behavior: "smooth",
   });
 });
+

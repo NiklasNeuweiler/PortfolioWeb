@@ -351,3 +351,88 @@ video {
     width: 100%; /* Nehmen Sie 100% der Breite für mobile Geräte ein */
   }
 }
+
+#meal-creator {
+    text-align: center;
+    margin: 20px;
+}
+
+#meal-creator button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+#created-meals {
+    margin-top: 20px;
+}
+
+#meal-list {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+#meal-list .meal-card {
+    width: 200px;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 10px;
+    border-radius: 8px;
+    margin: 10px;
+    text-align: center;
+}
+
+#meal-search {
+    text-align: center;
+    margin: 20px;
+}
+
+#ingredient-list {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+#ingredient-list .ingredient-card {
+    width: 200px;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 10px;
+    border-radius: 8px;
+    margin: 10px;
+    text-align: center;
+}
+
+#meal-overview-section {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    border-radius: 8px;
+}
+
+#meal-overview h3 {
+    margin-bottom: 10px;
+}
+
+#meal-overview div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.1);
+    margin-bottom: 10px;
+}
+
+#meal-overview button {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
