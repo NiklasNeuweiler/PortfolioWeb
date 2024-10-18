@@ -1,311 +1,353 @@
 body {
-    font-family: Arial, sans-serif;
-    background-image: url('fitness-background.jpg');
-    background-size: cover;
-    background-attachment: fixed;
-    color: white;
-    text-align: center;
-    margin: 0;
-    padding: 0;
+  font-family: Arial, sans-serif;
+  background-image: url("fitness-background.jpg");
+  background-size: cover;
+  background-attachment: fixed;
+  color: white;
+  text-align: center;
+  margin: 0;
+  padding: 0;
 }
 
 header {
-    background-color: rgba(0, 0, 0, 0.8);
-    padding: 15px;
-    text-align: center;
-    color: white;
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 15px;
+  text-align: center;
+  color: white;
 }
 
 h1 {
-    font-size: 6vw;
-    margin: 0;
-    padding: 10px;
-    color: white;
+  font-size: 6vw;
+  margin: 0;
+  padding: 10px;
+  color: white;
 }
 
 /* Responsive heading */
 @media (min-width: 1200px) {
-    h1 {
-        font-size: 4rem;
-    }
+  h1 {
+    font-size: 4rem;
+  }
 }
 
 @media (max-width: 600px) {
-    h1 {
-        font-size: 8vw;
-    }
+  h1 {
+    font-size: 8vw;
+  }
 }
 
 nav ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 15px 0;
+  list-style-type: none;
+  padding: 0;
+  margin: 15px 0;
 }
 
 nav li {
-    display: inline;
-    margin: 0 15px;
+  display: inline;
+  margin: 0 15px;
 }
 
 nav a {
-    color: white;
-    text-decoration: none;
-    font-size: 1.2em;
+  color: white;
+  text-decoration: none;
+  font-size: 1.2em;
 }
 
 nav img {
-    width: 30px;
-    height: auto;
-    margin: 0 10px;
-    cursor: pointer;
+  width: 30px;
+  height: auto;
+  margin: 0 10px;
+  cursor: pointer;
 }
 
 .menu-icon {
-    display: none;
-    font-size: 30px;
-    cursor: pointer;
-    color: white;
-    position: fixed;
-    top: 10px;
-    right: 20px;
-    z-index: 1000;
+  display: none;
+  font-size: 30px;
+  cursor: pointer;
+  color: white;
+  position: fixed;
+  top: 10px;
+  right: 20px;
+  z-index: 1000;
 }
 
 @media (max-width: 768px) {
-    nav ul {
-        display: none;
-        flex-direction: column;
-        position: absolute;
-        top: 50px;
-        right: 0;
-        width: 200px;
-        background-color: rgba(0, 0, 0, 0.8);
-        z-index: 999;
-        padding: 10px;
-        border-radius: 0 0 8px 8px;
-    }
+  nav ul {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 50px;
+    right: 0;
+    width: 200px;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 999;
+    padding: 10px;
+    border-radius: 0 0 8px 8px;
+  }
 
-    nav ul.active {
-        display: flex;
-    }
+  nav ul.active {
+    display: flex;
+  }
 
-    nav li {
-        margin: 10px 0;
-        display: block;
-        text-align: right;
-    }
+  nav li {
+    margin: 10px 0;
+    display: block;
+    text-align: right;
+  }
 
-    .menu-icon {
-        display: block;
-    }
+  .menu-icon {
+    display: block;
+  }
 }
 
 /* Buttons and Input Fields Enhancement */
-input, button, select {
-    padding: 10px;
-    font-size: 1.2em;
-    margin: 10px;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    background-color: rgba(255, 255, 255, 0.8);
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+input,
+button,
+select {
+  padding: 10px;
+  font-size: 1.2em;
+  margin: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-input:focus, select:focus {
-    outline: none;
-    background-color: rgba(255, 255, 255, 1);
-    box-shadow: 0 0 10px rgba(76, 175, 80, 0.7);
+input:focus,
+select:focus {
+  outline: none;
+  background-color: rgba(255, 255, 255, 1);
+  box-shadow: 0 0 10px rgba(76, 175, 80, 0.7);
 }
 
 button {
-    cursor: pointer;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+  cursor: pointer;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 button:hover {
-    background-color: #45a049;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+  background-color: #45a049;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
 }
 
 button:active {
-    transform: translateY(1px);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transform: translateY(1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 button:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
+  background-color: #ccc;
+  cursor: not-allowed;
 }
 
-input:hover, select:hover {
-    background-color: rgba(255, 255, 255, 0.9);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+input:hover,
+select:hover {
+  background-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 /* Section Enhancements */
 section {
-    padding: 20px;
-    margin: 20px auto;
-    width: 80%;
-    background-color: rgba(0, 0, 0, 0.5);
-    border-radius: 10px;
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+  padding: 20px;
+  margin: 20px auto;
+  width: 80%;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
 }
 
-#results, #meal-summary {
-    margin-top: 20px;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
+#results,
+#meal-summary {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
-.result-item, .meal-item {
-    background-color: rgba(255, 255, 255, 0.1);
-    margin: 15px;
-    padding: 20px;
-    border-radius: 8px;
-    width: 250px;
-    text-align: left;
+.result-item,
+.meal-item {
+  background-color: rgba(255, 255, 255, 0.1);
+  margin: 15px;
+  padding: 20px;
+  border-radius: 8px;
+  width: 250px;
+  text-align: left;
 }
 
 #cookie-banner {
-    background-color: rgba(0, 0, 0, 0.9);
-    color: white;
-    padding: 15px;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    text-align: center;
-    z-index: 1000;
+  background-color: rgba(0, 0, 0, 0.9);
+  color: white;
+  padding: 15px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  z-index: 1000;
 }
 
 #cookie-banner button {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
 }
 
 #cookie-banner button:hover {
-    background-color: #45a049;
+  background-color: #45a049;
 }
 
 #logo {
-    width: 100px;
-    height: auto;
-    float: left;
-    margin-right: 15px;
+  width: 100px;
+  height: auto;
+  float: left;
+  margin-right: 15px;
 }
 
 #background-video {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: -1;
-    overflow: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+  overflow: hidden;
 }
 
 .video-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    z-index: -1;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: -1;
 }
 
 video {
-    min-width: 100%;
-    min-height: 100%;
-    object-fit: cover;
+  min-width: 100%;
+  min-height: 100%;
+  object-fit: cover;
 }
 
 .tile-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
 }
 
 .tile {
-    margin: 20px;
-    position: relative;
-    overflow: hidden;
-    border-radius: 10px;
-    transition: transform 0.3s ease-in-out;
+  margin: 20px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+  transition: transform 0.3s ease-in-out;
 }
 
 .tile img {
-    width: 300px;
-    height: 200px;
-    object-fit: cover;
-    transition: transform 0.3s ease;
+  width: 300px;
+  height: 200px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
 }
 
 .tile-text {
-    position: absolute;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.7);
-    width: 100%;
-    color: white;
-    text-align: center;
-    padding: 10px;
-    box-sizing: border-box;
+  position: absolute;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  width: 100%;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  box-sizing: border-box;
 }
 
 .tile:hover {
-    transform: scale(1.05);
+  transform: scale(1.05);
 }
 
 .tile:hover img {
-    transform: scale(1.1);
+  transform: scale(1.1);
 }
 
-/* Responsive Design */
+/* Mobile Responsive Design */
 @media (max-width: 768px) {
-    .tile-container {
-        flex-direction: column;
-        align-items: center;
-    }
+  .result-item {
+    width: 100%;
+  }
 
-    h1 {
-        font-size: 2.5rem;
-    }
+  h1 {
+    font-size: 2.5rem;
+  }
 
-    .tile img {
-        width: 100%;
-        height: auto;
-    }
+  .tile img {
+    width: 100%;
+    height: auto;
+  }
 }
 
 .result-item {
-    background-color: rgba(255, 255, 255, 0.1);
-    margin: 15px;
-    padding: 20px;
-    border-radius: 8px;
-    width: 250px;
-    text-align: center; /* Zentriert den Text und Button */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+  background-color: rgba(255, 255, 255, 0.1);
+  margin: 15px;
+  padding: 20px;
+  border-radius: 8px;
+  width: 250px;
+  text-align: center; /* Zentriert den Text und Button */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .result-item img {
-    max-width: 100%; /* Verhindert, dass das Bild den Container überschreitet */
-    height: auto; /* Erhält das Seitenverhältnis */
-    margin-bottom: 10px;
+  max-width: 100%; /* Verhindert, dass das Bild den Container überschreitet */
+  height: auto; /* Erhält das Seitenverhältnis */
+  margin-bottom: 10px;
 }
 
 .result-item button {
-    margin-top: auto; /* Positioniert den Button unten */
+  margin-top: auto; /* Positioniert den Button unten */
+}
+
+/* Container für die Rezeptdarstellung */
+#recipe-results {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Einzelne Rezeptkarten */
+.result-item {
+  background-color: rgba(255, 255, 255, 0.1);
+  margin: 15px;
+  padding: 20px;
+  border-radius: 8px;
+  width: 250px;
+  text-align: center; /* Zentriert den Text und Button */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.result-item img {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+.result-item button {
+  margin-top: auto; /* Positioniert den Button unten */
+}
+
+/* Responsives Design für kleine Bildschirme */
+@media (max-width: 768px) {
+  .result-item {
+    width: 100%; /* Nehmen Sie 100% der Breite für mobile Geräte ein */
+  }
 }
